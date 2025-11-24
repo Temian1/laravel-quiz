@@ -22,6 +22,11 @@ class TakeQuiz extends Component
 
     public function mount($quizId)
     {
+        // Ensure user is authenticated
+        if (!auth()->check()) {
+            abort(403, 'You must be logged in to take a quiz.');
+        }
+
         $this->quiz = Quiz::with('questions.answers')->findOrFail($quizId);
         $this->questions = $this->quiz->questions;
 

@@ -16,7 +16,9 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/quiz/{quizId}', TakeQuiz::class)->name('quiz.take');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/quiz/{quizId}', TakeQuiz::class)->name('quiz.take');
+});
 
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

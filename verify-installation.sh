@@ -18,7 +18,21 @@ NC='\033[0m' # No Color
 echo "Checking PHP version..."
 PHP_VERSION=$(php -r "echo PHP_VERSION;")
 PHP_REQUIRED="8.1"
-if [ "$(printf '%s\n' "$PHP_REQUIRED" "$PHP_VERSION" | sort -V | head -n1)" = "$PHP_REQUIRED" ]; then
+
+# Simple version comparison using awk
+php_version_check() {
+    echo "$1 $2" | awk '{
+        split($1, a, ".");
+        split($2, b, ".");
+        if (a[1] > b[1]) exit 0;
+        if (a[1] < b[1]) exit 1;
+        if (a[2] > b[2]) exit 0;
+        if (a[2] < b[2]) exit 1;
+        exit 0;
+    }'
+}
+
+if php_version_check "$PHP_VERSION" "$PHP_REQUIRED"; then
     echo -e "${GREEN}✓ PHP version $PHP_VERSION is compatible${NC}"
 else
     echo -e "${RED}✗ PHP version $PHP_VERSION is not compatible. Required: $PHP_REQUIRED or higher${NC}"

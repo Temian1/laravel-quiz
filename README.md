@@ -104,6 +104,8 @@ Visit: http://localhost:8000
 - Email: `admin@example.com`
 - Password: `password`
 
+**Note**: In a production environment, you should implement a proper authentication system with login/register pages. This demo assumes users are already authenticated. To add authentication UI, consider using Laravel Breeze or Jetstream.
+
 **Managing Quizzes:**
 1. Navigate to `/admin` 
 2. Create a new quiz by filling in:
