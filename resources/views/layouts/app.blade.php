@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Laravel Quiz')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" 
+            integrity="sha384-t3YYlfQhJpbQvQjEQQD5pXwLFOOb4TlQ3pCX5wIw7KpTqfPJKFxpF/6uXzLJJlCJ" 
+            crossorigin="anonymous"></script>
     @livewireStyles
+    <!-- Note: For production, consider installing Tailwind CSS locally via npm -->
 </head>
 <body class="bg-gray-100">
     <nav class="bg-white shadow-lg">

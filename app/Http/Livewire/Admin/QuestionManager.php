@@ -129,16 +129,33 @@ class QuestionManager extends Component
             'points' => $this->points,
         ]);
 
-        // Delete old answers and create new ones
-        Answer::where('question_id', $this->question->id)->delete();
+        // Update answers more efficiently
+        $existingAnswerIds = $this->question->answers->pluck('id')->toArray();
+        $submittedAnswerIds = array_filter(array_column($this->answers, 'id'));
+        
+        // Delete answers that were removed
+        $toDelete = array_diff($existingAnswerIds, $submittedAnswerIds);
+        if (!empty($toDelete)) {
+            Answer::whereIn('id', $toDelete)->delete();
+        }
 
+        // Update or create answers
         foreach ($this->answers as $answer) {
             if (!empty($answer['text'])) {
-                Answer::create([
-                    'question_id' => $this->question->id,
-                    'answer_text' => $answer['text'],
-                    'is_correct' => $answer['is_correct'] ?? false,
-                ]);
+                if (isset($answer['id'])) {
+                    // Update existing answer
+                    Answer::where('id', $answer['id'])->update([
+                        'answer_text' => $answer['text'],
+                        'is_correct' => $answer['is_correct'] ?? false,
+                    ]);
+                } else {
+                    // Create new answer
+                    Answer::create([
+                        'question_id' => $this->question->id,
+                        'answer_text' => $answer['text'],
+                        'is_correct' => $answer['is_correct'] ?? false,
+                    ]);
+                }
             }
         }
 

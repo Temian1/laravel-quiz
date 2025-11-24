@@ -205,10 +205,25 @@ Edit `config/quiz.php` for default settings:
 
 ### Styling
 
-The application uses Tailwind CSS via CDN. To customize:
-1. Install Tailwind locally
-2. Modify `resources/css/app.css`
-3. Update `resources/views/layouts/app.blade.php`
+The application uses Tailwind CSS via CDN for quick setup. For production:
+
+**Option 1: Install Tailwind locally (Recommended for Production)**
+```bash
+npm install
+npm run build
+```
+
+**Option 2: Add SRI attributes for CDN**
+The views include integrity checks for CDN resources. For production, consider:
+- Using local installations of Tailwind CSS and Alpine.js
+- Setting up proper asset versioning
+- Implementing Content Security Policy (CSP)
+
+To customize:
+1. Install Tailwind locally: `npm install -D tailwindcss`
+2. Create `tailwind.config.js`
+3. Modify `resources/css/app.css`
+4. Update `resources/views/layouts/app.blade.php` to use compiled assets
 
 ## API Endpoints
 

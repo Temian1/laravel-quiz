@@ -177,7 +177,11 @@
                     }
                 }
             </script>
-            <script src="//unpkg.com/alpinejs" defer></script>
+            <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" 
+                    integrity="sha384-iXG2hQjVfjLXDjAWz7J1TmJz7p9GOJ8OoFqJvTHiJqvFOXkiLLFrqGg5n5i5t6sN" 
+                    crossorigin="anonymous" 
+                    defer></script>
+            <!-- Note: For production, consider installing Alpine.js locally via npm -->
         @endif
     @endif
 </div>
